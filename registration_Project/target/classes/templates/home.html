@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<title>Home Page</title>
+	<link rel="stylesheet"
+		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		  crossorigin="anonymous">
+</head>
+
+<body class="text-center">
+
+<h2 style="margin-top: 20px;">Home Page</h2>
+	<hr>
+	
+	<p>
+	Welcome to the home page!
+	</p>
+	
+	<hr>
+	
+	<!-- display user name and role -->
+	
+	<div>
+		User: <span sec:authentication="name"></span>
+		<br><br>
+		Role(s): <span sec:authentication="principal.authorities"></span>
+		<br><br>
+
+		<!-- Check for login error -->																	
+		<div th:if="${session.user}" >
+			<p th:text="'First name: ' + ${session.user.firstName}"></p>
+			<p th:text="'Last name: ' + ${session.user.lastName}"></p>
+			<p th:text="' Email: ' + ${session.user.email}"></p>
+		</div>
+	</div>
+	
+<!--	<div sec:authorize="hasRole('ROLE_MANAGER')">-->
+	
+		<!-- Add a link to point to the managers -->
+		
+		<p>
+			<a th:href="@{/managers}">Managers Meeting</a>
+			(Only for Managers)
+		</p>
+
+	</div>	
+
+<!--	<div sec:authorize="hasRole('ROLE_ADMIN')">  -->
+
+		<!-- Add a link to point to admins -->
+		
+		<p>
+			<a th:href="@{/systems}">IT Systems Meeting</a>
+			(Only for Admins)
+		</p>
+	
+	</div>
+
+	<hr>
+	
+	
+	<!-- Add a logout button -->
+	<form th:action="@{/logout}" 
+			   method="POST">
+	
+		<input class="btn btn-primary" type="submit" value="Logout" />
+	
+	</form>	
+			
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
